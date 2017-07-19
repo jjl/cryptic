@@ -9,8 +9,14 @@ Cryptography made palatable
 ```clojure
 (require '[irresponsible.cryptic :as c])
 
+;; password hashing and checking is easy!
 (c/check-password "foo" (c/hash-password "foo" {:algo :argon2id})) ;; => true
 (c/check-password "bar" (c/hash-password "foo" {:algo :argon2id})) ;; => false
+
+;; we can also dynamically select the best from what we have available
+(c/password-algos) ;; => e.g. [:argon2id :argon2i :argon2d]
+;; and identify the algorithm that produced a given hash
+(c/identify-algo (c/hash-password "foo" {:algo :argon2id})) ;; => :argon2id
 ```
 
 ## Recommendations
@@ -27,8 +33,6 @@ cryptic was designed from the ground up to be pluggable. The clojure code which 
 ## Notes
 
 Argon2 support relies on [argon2-jvm](https://github.com/phxql/argon2-jvm) which uses JNA. Binaries are included in the `argon2-jvm` artifact for [these platforms](https://github.com/phxql/argon2-jvm#usage). You may depend on the (smaller) `argon2-jvm-nolibs` release which does not include binaries but this will require you to have `libargon2` installed on the target system. *if* you do this, beware that `:argon2id` is a newer algorithm and "stable" distributions may not ship a new enough libargon2 to support it.
-
-Register functions catch any loading errors and return a vector of algorithms successfully loaded in preference order (my preference, what i consider sane defaults for general purpose use) so that you can easily choose the best of the available algorithms.
 
 ## Providing for Algorithm Rollover
 
