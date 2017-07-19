@@ -22,7 +22,7 @@ These are our current recommendations. As cryptography is an active research are
 | Password hashing | `:argon2id`, `:argon2i`, `:argon2d` | No, JNA    | `[de.mkammerer/argon2-jvm "2.2"]` or  `[de.mkammerer/argon2-jvm-nolibs "2.2"]` (see notes section |
 <!-- | Password hashing | `:bcrypt`                           | Yes        | `[org.mindrot/jbcrypt "0.4"]` | -->
 
-crypfrom was designed from the ground up to be pluggable. The clojure code which handles algorithms is fairly small, but the java libraries upon which they depend are a little bigger so we don't force a dependency on any of them. Pleae include the dependencies for the algorithms you need, bearing in mind that some of them use JNA (see also the notes section below)
+cryptic was designed from the ground up to be pluggable. The clojure code which handles algorithms is fairly small, but the java libraries upon which they depend are a little bigger so we don't force a dependency on any of them. Pleae include the dependencies for the algorithms you need, bearing in mind that some of them use JNA (see also the notes section below)
 
 ## Notes
 
@@ -71,7 +71,7 @@ Argon2 family (`:argon2id`, `:argon2i`, `:argon2d`):
 
 ## Copyright and License
 
-crypfrom is copyright (c) 2017 James Laver
+cryptic is copyright (c) 2017 James Laver
 
 MIT LICENSE
 
