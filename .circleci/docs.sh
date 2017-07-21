@@ -1,8 +1,8 @@
-git checkout -b gh-pages
 apt-get update
 apt-get -y install curl build-essential git-core
 curl -sL https://deb.nodesource.com/setup_6.x | bash -
 apt-get install -y nodejs
+git checkout -b gh-pages
 .circleci/install_boot.sh
 export BOOT_AS_ROOT=yes
 ./boot testing
