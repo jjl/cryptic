@@ -16,12 +16,12 @@ jobs:
     <<: *shared
     docker:
       - image: azul/zulu-openjdk-alpine:8
-  # zulu8_clojure1.8:
-  #   <<: *shared
-  #   docker:
-  #     - image: azul/zulu-openjdk-alpine:8
-  #   environment:
-  #     CLOJURE=1.8
+  zulu8_clojure1.8:
+    <<: *shared
+    docker:
+      - image: azul/zulu-openjdk-alpine:8
+    environment:
+      CLOJURE=1.8
   zulu7:
     <<: *shared
     docker:

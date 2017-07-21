@@ -1,14 +1,21 @@
+(def clj-version
+  (case (System/getenv "CLOJURE")
+    "1.7" "1.7.0"
+    "1.8" "1.8.0"
+    "1.9.0-alpha17"
+    ))
+      
 (set-env!
   :resource-paths #{"src"}
   :source-paths #{"src"}
   :description "cryptography made palatable"
   :version "0.1.0"
-  :dependencies '[[org.clojure/clojure     "1.9.0-alpha17"]
-                  [org.clojure/test.check  "0.10.0-alpha2" :scope "test"]
-                  [boot-codox              "0.10.3" :scope "test"]
-                  [de.mkammerer/argon2-jvm "2.2"           :scope "test"]
+  :dependencies [['org.clojure/clojure     clj-version :scope "provided"]
+                 '[org.clojure/test.check  "0.10.0-alpha2" :scope "test"]
+                 '[boot-codox              "0.10.3" :scope "test"]
+                 '[de.mkammerer/argon2-jvm "2.2"           :scope "test"]
 ;                  [org.mindrot/bcrypt "0.4.0" :scope "test"]
-                  [adzerk/boot-test        "1.1.0"         :scope "test"]])
+                 '[adzerk/boot-test        "1.1.0"         :scope "test"]])
 
 (require '[adzerk.boot-test :as t]
          '[codox.boot :refer [codox]])
@@ -40,4 +47,5 @@
   identity)
 
 (deftask travis []
+  (prn :clojure-version clj-version)
   (comp (testing) (t/test)))
