@@ -8,7 +8,7 @@ shared: &shared
     - checkout
     - run: apk add curl bash
     - run: .circleci/install_boot.sh
-    - run: BOOT_AS_ROOT=yes ./boot deps
+    - run: BOOT_AS_ROOT=yes ./boot testing
     - run: BOOT_AS_ROOT=yes ./boot travis
 
 jobs:
@@ -37,7 +37,7 @@ jobs:
   #     - checkout
   #     - run: .circleci/install_zulu9
   #     - run: .circleci/install_boot.sh
-  #     - run: ./boot deps
+  #     - run: ./boot testing
   #     - run: ./boot test
   # docs:
   #   docker:
@@ -45,7 +45,7 @@ jobs:
   #   steps:
   #     - checkout
   #     - run: .circleci/install_boot.sh
-  #     - run: ./boot deps
+  #     - run: ./boot testing
   #     - run: ./boot codox
 
 workflows:
