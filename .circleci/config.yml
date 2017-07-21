@@ -66,8 +66,8 @@ workflows:
       - zulu8_clojure1.8
       - zulu7
       - docs:
-        requires:
-          - zulu8
-          - zulu8_clojure1.8
-          - zulu7
+          requires:
+            - zulu8
+            - zulu8_clojure1.8
+            - zulu7
     
