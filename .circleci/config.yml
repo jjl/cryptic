@@ -44,8 +44,9 @@ jobs:
       - image: azul/zulu-openjdk-debian:8
     steps:
       - checkout
+      - run: apt-get -y install curl build-essential git-core
       - run: curl -sL https://deb.nodesource.com/setup_6.x | bash -
-      - run: apt-get install -y nodejs build-essential git-core curl
+      - run: apt-get install -y nodejs
       - run: .circleci/install_boot.sh
       - run: BOOT_AS_ROOT=yes ./boot testing
       - run: BOOT_AS_ROOT=yes ./boot codox target
