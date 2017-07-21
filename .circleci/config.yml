@@ -39,15 +39,25 @@ jobs:
   #     - run: .circleci/install_boot.sh
   #     - run: ./boot testing
   #     - run: ./boot test
-  # docs:
-  #   docker:
-  #     - image: azul/zulu-openjdk-8
-  #   steps:
-  #     - checkout
-  #     - run: .circleci/install_boot.sh
-  #     - run: ./boot testing
-  #     - run: ./boot codox
-
+  docs:
+    docker:
+      - image: azul/zulu-openjdk-8
+    steps:
+      - checkout
+      - run: .circleci/install_boot.sh
+      - run: ./boot testing
+      - run: ./boot codox target
+      - run: mv -f target/doc/ ./
+      - run: git checkout gh-pages
+      - run: find . -mindepth 1 -maxdepth 1 -type f | xargs rm -f
+      - run: mv -f doc/* .
+      - run: rmdir doc
+      - run: git add -A .
+      - run: git commit -m "Rebuild website documentation"
+      - run: git config user.name "CircleCI"
+      - run: git config user.email "docs@circleci"
+      - run: openssl aes-256-cbc -d -in docs_rsa.env -out $HOME/.ssh/docs_rsa -k $DOC_KEY_PASSWORD
+      - run: git push origin gh-pages
 workflows:
   version: 2
   build:
@@ -55,9 +65,9 @@ workflows:
       - zulu8
       - zulu8_clojure1.8
       - zulu7
-      # - docs:
-      #   requires:
-      #     - zulu8
-      #     - zulu8_clojure1.8
-      #     - zulu7
+      - docs:
+        requires:
+          - zulu8
+          - zulu8_clojure1.8
+          - zulu7
     
