@@ -1,0 +1,59 @@
+version: 2
+
+shared: &shared
+  working_directory: ~/repo
+  environment:
+    JVM_OPTS: -Xmx3200m
+  steps:
+    - checkout
+    - run: .circleci/install_boot.sh
+    - run: ./boot deps
+    - run: ./boot test
+
+jobs:
+  zulu8:
+    docker:
+      - image: azul/zulu-openjdk-8
+  zulu8_clojure1.8:
+    docker:
+      - image: azul/zulu-openjdk-8
+    environment:
+      CLOJURE=1.8
+  zulu7:
+    docker:
+      - image: azul/zulu-openjdk-7
+  # "zulu9":
+  #   docker:
+  #     - image: debian/jessie-minimal
+  #   working_directory: ~/repo
+  #   environment:
+  #     JVM_OPTS: -Xmx3200m
+  #     BOOT_JAVA_COMMAND:
+  #   steps:
+  #     - checkout
+  #     - run: .circleci/install_zulu9
+  #     - run: .circleci/install_boot.sh
+  #     - run: ./boot deps
+  #     - run: ./boot test
+  docs:
+    docker:
+      - image: azul/zulu-openjdk-8
+    steps:
+      - checkout
+      - run: .circleci/install_boot.sh
+      - run: ./boot deps
+      - run: ./boot codox
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - zulu8
+      - zulu8_clojure1.8
+      - zulu7
+      - docs:
+        requires:
+          - zulu8
+          - zulu8_clojure1.8
+          - zulu7
+    
