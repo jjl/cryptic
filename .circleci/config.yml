@@ -6,7 +6,7 @@ shared: &shared
     JVM_OPTS: -Xmx3200m
   steps:
     - checkout
-    - run: apk add curl
+    - run: apk add curl bash
     - run: .circleci/install_boot.sh
     - run: ./boot deps
     - run: ./boot test
