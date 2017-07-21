@@ -53,7 +53,7 @@ workflows:
   build:
     jobs:
       - zulu8
-      # - zulu8_clojure1.8
+      - zulu8_clojure1.8
       - zulu7
       # - docs:
       #   requires:
