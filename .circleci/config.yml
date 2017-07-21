@@ -9,7 +9,7 @@ shared: &shared
     - run: apk add curl bash
     - run: .circleci/install_boot.sh
     - run: BOOT_AS_ROOT=yes ./boot deps
-    - run: BOOT_AS_ROOT=yes ./boot test
+    - run: BOOT_AS_ROOT=yes ./boot travis
 
 jobs:
   zulu8:
