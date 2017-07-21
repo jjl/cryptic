@@ -44,6 +44,7 @@ jobs:
       - image: azul/zulu-openjdk-debian:8
     steps:
       - checkout
+      - run: .circleci/docs.sh
       - run: apt-get -y install curl build-essential git-core
       - run: curl -sL https://deb.nodesource.com/setup_6.x | bash -
       - run: apt-get install -y nodejs
