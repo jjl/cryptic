@@ -41,7 +41,7 @@ jobs:
   #     - run: ./boot test
   docs:
     docker:
-      - image: azul/zulu-openjdk-8
+      - image: azul/zulu-openjdk-alpine:8
     steps:
       - checkout
       - run: .circleci/install_boot.sh
