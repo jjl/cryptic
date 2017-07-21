@@ -1,9 +1,4 @@
-(def clj-version
-  (case (System/getenv "CLOJURE")
-    "1.7" "1.7.0"
-    "1.8" "1.8.0"
-    "1.9.0-alpha17"
-    ))
+(def clj-version (or (System/getenv "BOOT_CLOJURE_VERSION") "1.9.0-alpha17"))
       
 (set-env!
   :resource-paths #{"src"}
@@ -34,6 +29,7 @@
   identity)
 
 (deftask test []
+  (prn "testing with clojure version:" clj-version)
   (comp (speak)
         (testing)
         (t/test)))
@@ -43,9 +39,3 @@
         (pom)
         (jar)))
 
-(deftask deps []
-  identity)
-
-(deftask travis []
-  (prn :clojure-version clj-version)
-  (comp (testing) (t/test)))
