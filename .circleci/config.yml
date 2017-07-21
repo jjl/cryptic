@@ -2,14 +2,12 @@ version: 2
 
 shared: &shared
   working_directory: ~/repo
-  environment:
-    BOOT_JVM_OPTIONS: -Xmx3200m
   steps:
     - checkout
     - run: apk add curl bash
     - run: .circleci/install_boot.sh
-    - run: BOOT_AS_ROOT=yes ./boot testing
-    - run: BOOT_AS_ROOT=yes ./boot test
+    - run: BOOT_JVM_OPTIONS=-Xmx3200m BOOT_AS_ROOT=yes ./boot testing
+    - run: BOOT_JVM_OPTIONS=-Xmx3200m BOOT_AS_ROOT=yes ./boot test
 
 jobs:
   zulu8:
@@ -49,8 +47,8 @@ jobs:
       - run: curl -sL https://deb.nodesource.com/setup_6.x | bash -
       - run: apt-get install -y nodejs
       - run: .circleci/install_boot.sh
-      - run: BOOT_AS_ROOT=yes ./boot testing
-      - run: BOOT_AS_ROOT=yes ./boot codox target
+      - run: BOOT_JVM_OPTIONS=-Xmx3200m BOOT_AS_ROOT=yes ./boot testing
+      - run: BOOT_JVM_OPTIONS=-Xmx3200m BOOT_AS_ROOT=yes ./boot codox target
       - run: mv -f target/doc/ ./
       - run: git checkout gh-pages
       - run: find . -mindepth 1 -maxdepth 1 -type f | xargs rm -f
