@@ -4,6 +4,7 @@ shared: &shared
   working_directory: ~/repo
   environment:
     JVM_OPTS: -Xmx3200m
+    BOOT_AS_ROOT: yes
   steps:
     - checkout
     - run: apk add curl bash
