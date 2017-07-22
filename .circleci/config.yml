@@ -3,7 +3,7 @@ version: 2
 shared: &shared
   working_directory: ~/repo
   steps:
-    - run: apk add curl bash git
+    - run: apk update && apk add curl bash git
     - checkout
     - run: .circleci/install_boot.sh
     - run: BOOT_JVM_OPTIONS=-Xmx3200m BOOT_AS_ROOT=yes ./boot testing
@@ -41,10 +41,13 @@ jobs:
     docker:
       - image: azul/zulu-openjdk-debian:8
     steps:
+      - run: 
+          name: Install packages
+          command: apt-get update && apt-get install git-core curl
+      - checkout
       - run:
           name: Install doc generation dependencies
           command: .circleci/docs_deps.sh
-      - checkout
       - run:
           name: Generate docs
           command: .circleci/docs_gen.sh
